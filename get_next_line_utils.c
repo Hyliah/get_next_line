@@ -6,7 +6,7 @@
 /*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:33:39 by hlichten          #+#    #+#             */
-/*   Updated: 2024/11/19 20:38:11 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/11/20 19:04:38 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_strlen_gnl(const char *str)
 	if (!str)
 		return (0); // au cas ou la string est vide pour ne pas segfault
 	i = 0;
-	while (str[i] && str[i] != '\n')
+	while (str[i] && str[i] != '\n') // verifier comment gerer le \n
 		i++;
 	return (i);
 }
@@ -63,4 +63,11 @@ char	*ft_strchr(const char *s, int c)
 	if (c1 == '\0')
 		return ((char *)s);
 	return (NULL);
+}
+
+void	ft_strcpy(char *dest, char *src)
+{
+	while (src && *src)
+		*(dest++) = *(src++);
+	*dest = '\0';
 }
