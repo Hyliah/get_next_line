@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: hlichten <hlichten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:33:43 by hlichten          #+#    #+#             */
-/*   Updated: 2024/11/20 19:19:04 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:00:49 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,15 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+// a supprimer pour les tests
+#include <stdio.h> 
+#include <stdio.h>
+#include <fcntl.h>
+
+int main (int argc, char **argv);
+
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 1
 # endif 
 
 char	*ft_strdupjoin(char *s1, char *s2);

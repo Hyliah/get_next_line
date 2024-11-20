@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: hlichten <hlichten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:21:57 by hlichten          #+#    #+#             */
-/*   Updated: 2024/11/20 19:18:53 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:00:48 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-
-#include <stdio.h> 
 
 char	*get_next_line(int fd)
 {
@@ -26,23 +23,23 @@ char	*get_next_line(int fd)
 	line = NULL;
 	if (*buff) // si il reste qqc dans le buffer 
 		ft_strcpy(line, buff); //on le transfert dans line (variable de retour)
-	while (1) // boucle infinie qui se termine une fois qu'il y a un retour. Si pas norminette on peut l ecrire : while ( rd = read(fd, buff, BUFFER_SIZE) > 0)
+	rd = 1;
+	while (rd > 0) // boucle infinie qui se termine une fois qu'il y a un retour. Si pas norminette on peut l ecrire : while ( rd = read(fd, buff, BUFFER_SIZE) > 0)
 	{
 		rd = read(fd, buff, BUFFER_SIZE); // donne le retour de read + execute la fonction read 
 		buff[rd] = '\0'; // a la fin du buffer à BUFFER_SIZE +1 ou si le texte est plus petit, on rajoute un \0
 		line = ft_strdupjoin(line, buff); // on met le contenu du buff dans line
-		printf("ceci est un test %s\n", line);
 		if (read <= 0 || ft_strchr(line, '\n')) // si le retour de read est fini ou un code erreur || OU || que il y a un \n dans la line
 		{
 			if (read > 0)
 				ft_strcpy(ft_strchr(line, '\n') + 1, buff); // mets strchr +1 au debut du buffer 
-			else if (read < 0)
+			if (read < 0)
 				return (NULL);
-			else
+			if (read == 0)
 				return (line);
 		}
 	}
-	return (line);
+	return (NULL);
 }
 
 // 0 si pas de \n, tout dans line
@@ -50,17 +47,48 @@ char	*get_next_line(int fd)
 // 2 mettre \n +1 dans static buffer au debut et rappeler la suite
 // 3 return  
 
-#include <fcntl.h>
+// int main()
+// {
+//     int fd = open("text", O_RDONLY); // Remplace "test.txt" par ton fichier de test
+//     if (fd < 0)
+//     {
+//         perror("Error opening file");
+//         return 1;
+//     }
 
+//     char *line;
+//     while ((line = get_next_line(fd)) != NULL)
+//     {
+//         printf("%s\n", line);
+//         free(line); // N'oublie pas de libérer la mémoire allouée pour chaque ligne
+//     }
+
+//     close(fd);
+//     return 0;
+// }
 
 int main (int argc, char **argv)
 {
     // Open
     int    fd = open(argv[1], O_RDONLY);
-    printf("Mon filedes: %d\n", fd);
+	char *line;
+
+    printf("Mon filedescriptor: %d\n", fd);
     // Read
-	get_next_line(fd);
-    // static char            buffer[BUFFER_SIZE + 1];
+	// char   buffer[BUFFER_SIZE + 1];
+	// int	rd = read(fd, buffer, BUFFER_SIZE);
+	// while (rd > 0)
+	// {
+	// 	printf("test gnl : %s\n", get_next_line(fd));
+	// }
+	line = get_next_line(fd);
+	printf("test gnl: %s\n", line);
+	while (line != NULL) 
+	{
+		line = get_next_line(fd);
+    	printf("test gnl: %s\n", line);
+	}
+  
     // read(fd, buffer, BUFFER_SIZE);
     // printf("ceci est mon buffer : %s", buffer);
     return 0;
@@ -85,6 +113,7 @@ int main (int argc, char **argv)
 // si ligne complete (on a trouve un \n ou fin du fichier) :
 // recuperer dans un tmp la fin  
 // lineurn line;
+
 
 // line = ft_strjoin(line, buff);
 

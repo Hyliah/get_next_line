@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: hlichten <hlichten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:33:39 by hlichten          #+#    #+#             */
-/*   Updated: 2024/11/20 19:18:51 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:00:50 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	*ft_strchr(const char *s, int c)
 
 void	ft_strcpy(char *dest, char *src)
 {
+	if (!dest)
+		return ;
 	while (src && *src)
 		*(dest++) = *(src++);
 	*dest = '\0';
