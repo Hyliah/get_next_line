@@ -6,11 +6,22 @@
 /*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:33:39 by hlichten          #+#    #+#             */
-/*   Updated: 2024/11/24 15:32:38 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/11/24 21:05:43 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+
+int	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
 int	ft_strlen_gnl(const char *str)
 {
@@ -75,3 +86,23 @@ void	ft_strcpy(char *dest, char *src)
 		*(dest++) = *(src++);
 	*dest = '\0';
 }
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	int		srcsize;
+
+	srcsize = ft_strlen((char *)src);
+	if (dstsize == 0)
+		return (srcsize);
+	i = 0;
+	while (src[i] && i < (dstsize - 1))
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (srcsize);
+}
+
+
