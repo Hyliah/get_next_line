@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlichten <hlichten@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:33:39 by hlichten          #+#    #+#             */
-/*   Updated: 2024/11/20 21:00:50 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/11/24 15:32:38 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ char	*ft_strdupjoin(char *s1, char *s2)
 	}
 	if (s1)
 		free(s1); // free pcq on a utilise le s1 et son contenu est dans str
-	while (s2[j] && s2[i] != '\n')
+	while (s2[j] && s2[j] != '\n')
 		str[i++] = s2[j++];
-	str[i] = '\0';
+	if (s2[j] == '\n')
+		str[i] = '\n'; 
+	str[++i] = '\0';
 	return (str);
 }
 
