@@ -6,7 +6,7 @@
 /*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:21:57 by hlichten          #+#    #+#             */
-/*   Updated: 2024/11/24 21:33:37 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/12/01 20:42:56 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,14 @@ char	*get_next_line(int fd)
 	static char buff[BUFFER_SIZE + 1] = {0}; // la taille du reste de depassera jamais la taille du buffer - 1 (\n) donc on connait deja la taille
 	char		*line; // ligne jusqu au \n + ce qui a deja ete lu 
 	int			rd; // retour de read
-	// int			i;
 
 	rd = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0) // fonction de verification si le fd est impossible ou si le buffer_size n est pas utilisable
 		return (NULL);
 	line = NULL;
 	if (*buff) // si il reste qqc dans le buffer 
-	{
-		ft_strcpy(line, buff); //on le transfert dans line (variable de retour
-		buff[0] = '\0'; // a la fin du buffer à BUFFER_SIZE +1 ou si le texte est plus petit, on rajoute un \0
-	}
+		ft_strcpy(line, buff); //on le transfert dans line (variable de retour)
+	ft_bzero(buff, BUFFER_SIZE); // a la fin du buffer à BUFFER_SIZE +1 ou si le texte est plus petit, on rajoute un \0
 	while (1) // boucle infinie qui se termine une fois qu'il y a un retour. Si pas norminette on peut l ecrire : while ( rd = read(fd, buff, BUFFER_SIZE) > 0)
 	{
 		rd = read(fd, buff, BUFFER_SIZE); // donne le retour de read + execute la fonction read 
@@ -45,32 +42,6 @@ char	*get_next_line(int fd)
 	}
 	return (NULL);
 }
-
-// int main(int argc, char **argv)
-// {
-//     int fd;
-//     char *line;
-
-//     if (argc != 2) // Vérifie si un fichier est donné en argument
-//     {
-//         printf("Usage: %s <filename>\n", argv[0]);
-//         return (1);
-//     }
-//     fd = open(argv[1], O_RDONLY); // Ouvre le fichier en lecture seule
-//     if (fd < 0) // Si l'ouverture échoue
-//     {
-//         perror("Error opening file");
-//         return (1);
-//     }
-//     while ((line = get_next_line(fd))) // Appelle get_next_line dans une boucle
-//     {
-//         printf("%s", line); // Affiche la ligne obtenue
-//         free(line);         // Libère la mémoire allouée
-//     }
-//     close(fd); // Ferme le fichier
-//     return (0);
-// }
-
 
 int    main (int ac, char **av)
 {
@@ -138,5 +109,27 @@ int    main (int ac, char **av)
 // 	supprime line du buff
 // si y a pas on copie le buff entier dans line + boucle infinie
 
+// int main(int argc, char **argv)
+// {
+//     int fd;
+//     char *line;
 
-
+//     if (argc != 2) // Vérifie si un fichier est donné en argument
+//     {
+//         printf("Usage: %s <filename>\n", argv[0]);
+//         return (1);
+//     }
+//     fd = open(argv[1], O_RDONLY); // Ouvre le fichier en lecture seule
+//     if (fd < 0) // Si l'ouverture échoue
+//     {
+//         perror("Error opening file");
+//         return (1);
+//     }
+//     while ((line = get_next_line(fd))) // Appelle get_next_line dans une boucle
+//     {
+//         printf("%s", line); // Affiche la ligne obtenue
+//         free(line);         // Libère la mémoire allouée
+//     }
+//     close(fd); // Ferme le fichier
+//     return (0);
+// }

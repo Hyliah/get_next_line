@@ -6,31 +6,85 @@
 /*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:33:39 by hlichten          #+#    #+#             */
-/*   Updated: 2024/11/24 21:05:43 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/12/01 20:08:13 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+// int ft_strlen(const char *str)
+// {
+//     size_t i = 0;
+//     if (!str)
+//         return (0);
+//     while (str[i])
+//         i++;
+//     return (i);
+// }
+
+// char *ft_strdupjoin(char *s1, char *s2)
+// {
+//     char    *str;
+//     size_t  i = 0;
+//     size_t  j = 0;
+
+//     str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+//     if (!str)
+//     {
+//         free(s1);
+//         return (NULL);
+//     }
+//     while (s1 && s1[i])
+//     {
+//         str[i] = s1[i];
+//         i++;
+//     }
+//     free(s1);
+//     while (s2[j])
+//     {
+//         str[i++] = s2[j];
+//         if (s2[j++] == '\n')
+//             break;
+//     }
+//     str[i] = '\0';
+//     return (str);
+// }
+
+// char *ft_strchr(const char *s, int c)
+// {
+//     while (*s)
+//     {
+//         if (*s == (char)c)
+//             return ((char *)s);
+//         s++;
+//     }
+//     return (c == '\0' ? (char *)s : NULL);
+// }
+
+// void ft_strcpy(char *dest, char *src)
+// {
+//     if (!dest || !src)
+//         return;
+//     while (*src)
+//         *(dest++) = *(src++);
+//     *dest = '\0';
+// }
+
+// void ft_bzero(void *s, size_t n)
+// {
+//     unsigned char *c = (unsigned char *)s;
+//     while (n-- > 0)
+//         *(c++) = 0;
+// }
 
 int	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int	ft_strlen_gnl(const char *str)
 {
 	int	i;
 
 	if (!str)
 		return (0); // au cas ou la string est vide pour ne pas segfault
 	i = 0;
-	while (str[i] && str[i] != '\n') // verifier comment gerer le \n
+	while (str[i]) // verifier comment gerer le \n
 		i++;
 	return (i);
 }
@@ -43,8 +97,8 @@ char	*ft_strdupjoin(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	str = (char *)malloc(sizeof (char) * (ft_strlen_gnl((char *)(s1))
-				+ ft_strlen_gnl((char *)(s2)) + 1));
+	str = (char *)malloc(sizeof(char) * (ft_strlen((char *)(s1))
+				+ ft_strlen((char *)(s2)) + 1));
 	if (!str)
 		return (NULL);
 	while (s1 && s1[i])
@@ -53,7 +107,7 @@ char	*ft_strdupjoin(char *s1, char *s2)
 		i++;
 	}
 	if (s1)
-		free(s1); // free pcq on a utilise le s1 et son contenu est dans str
+		free(s1);
 	while (s2[j] && s2[j] != '\n')
 		str[i++] = s2[j++];
 	if (s2[j] == '\n')
@@ -87,22 +141,11 @@ void	ft_strcpy(char *dest, char *src)
 	*dest = '\0';
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+void    ft_bzero(void *s, size_t n)
 {
-	size_t	i;
-	int		srcsize;
-
-	srcsize = ft_strlen((char *)src);
-	if (dstsize == 0)
-		return (srcsize);
-	i = 0;
-	while (src[i] && i < (dstsize - 1))
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (srcsize);
+    unsigned char   *c;
+    
+    c = (unsigned char*)s;
+    while (n-- > 0)
+        *(c++) = 0;
 }
-
-
