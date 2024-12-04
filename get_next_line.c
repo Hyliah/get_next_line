@@ -3,45 +3,134 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: hlichten <hlichten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:21:57 by hlichten          #+#    #+#             */
-/*   Updated: 2024/12/01 20:42:56 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/12/04 21:37:43 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	unsigned char		*d;
+	const unsigned char	*s;
+
+	if (!dest || !src)
+		return (NULL);
+	d = (unsigned char *)dest;
+	s = (const unsigned char *)src;
+	if (d < s)
+	{
+		size_t i = 0;
+		while (i < n)
+		{
+			d[i] = s[i];
+			i++;
+		}
+	}
+	else
+	{
+		while (n > 0)
+		{
+			n--;
+			d[n] = s[n];
+		}
+	}
+	return (dest);
+}
+
 char	*get_next_line(int fd)
 {
-	static char buff[BUFFER_SIZE + 1] = {0}; // la taille du reste de depassera jamais la taille du buffer - 1 (\n) donc on connait deja la taille
-	char		*line; // ligne jusqu au \n + ce qui a deja ete lu 
-	int			rd; // retour de read
+	static char	buff[BUFFER_SIZE + 1] = {0};
+	char		*line;
+	int			rd;
 
-	rd = 1;
-	if (fd < 0 || BUFFER_SIZE <= 0) // fonction de verification si le fd est impossible ou si le buffer_size n est pas utilisable
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	line = NULL;
-	if (*buff) // si il reste qqc dans le buffer 
-		ft_strcpy(line, buff); //on le transfert dans line (variable de retour)
-	ft_bzero(buff, BUFFER_SIZE); // a la fin du buffer à BUFFER_SIZE +1 ou si le texte est plus petit, on rajoute un \0
-	while (1) // boucle infinie qui se termine une fois qu'il y a un retour. Si pas norminette on peut l ecrire : while ( rd = read(fd, buff, BUFFER_SIZE) > 0)
+	if (*buff) // Si le buffer contient des données non lues
 	{
-		rd = read(fd, buff, BUFFER_SIZE); // donne le retour de read + execute la fonction read 
-		buff[rd] = '\0';
-		line = ft_strdupjoin(line, buff); // on met le contenu du buff dans line
+		line = ft_strdupjoin(line, buff);
+		if (!line)
+			return (NULL);
+	}
+	while (1)
+	{
 		if (ft_strchr(line, '\n'))
 		{
-			ft_strcpy(buff, ft_strchr(line, '\n') + 1);
+			char	*newline_pos;
+			size_t	remaining_len;
+
+			newline_pos = ft_strchr(line, '\n') + 1;
+			remaining_len = ft_strlen(newline_pos);
+			if (remaining_len >= BUFFER_SIZE)
+				remaining_len = BUFFER_SIZE - 1;
+			ft_memmove(buff, newline_pos, remaining_len);
+			buff[remaining_len] = '\0';
 			return (line);
 		}
+		rd = read(fd, buff, BUFFER_SIZE);
 		if (rd < 0)
+		{
+			free(line);
 			return (NULL);
+		}
+		buff[rd] = '\0';
 		if (rd == 0)
-			break ;
+		{
+			if (line && *line)
+				return (line);
+			else
+			{
+				free(line);
+				return (NULL);
+			}
+		}
+		line = ft_strdupjoin(line, buff);
+		if (!line)
+			return (NULL);
 	}
-	return (NULL);
 }
+
+// char	*get_next_line(int fd)
+// {
+// 	static char buff[BUFFER_SIZE + 1] = {0}; // la taille du reste de depassera jamais la taille du buffer - 1 (\n) donc on connait deja la taille
+// 	char		*line; // ligne jusqu au \n + ce qui a deja ete lu 
+// 	int			rd; // retour de read
+
+// 	rd = 1;
+// 	if (fd < 0 || BUFFER_SIZE <= 0) // fonction de verification si le fd est impossible ou si le buffer_size n est pas utilisable
+// 		return (NULL);
+// 	line = NULL;
+// 	if (*buff) // si il reste qqc dans le buffer 
+// 	{
+// 		line = ft_strdupjoin(line, buff); // on le transfert dans line (variable de retour)
+// 		if (!line)
+// 			return (NULL);
+// 	}
+// 	ft_bzero(buff, BUFFER_SIZE); // a la fin du buffer à BUFFER_SIZE +1 ou si le texte est plus petit, on rajoute un \0
+// 	while (1) // boucle infinie qui se termine une fois qu'il y a un retour. Si pas norminette on peut l ecrire : while ( rd = read(fd, buff, BUFFER_SIZE) > 0)
+// 	{
+// 		rd = read(fd, buff, BUFFER_SIZE); // donne le retour de read + execute la fonction read 
+// 		if (rd < 0)
+// 		{
+// 			free(line);
+// 			return (NULL);
+// 		}
+// 		buff[rd] = '\0';
+// 		line = ft_strdupjoin(line, buff); // on met le contenu du buff dans line
+// 		if (ft_strchr(line, '\n'))
+// 		{
+// 			ft_strcpy(buff, ft_strchr(line, '\n') + 1);
+// 			return (line);
+// 		}
+// 		if (rd == 0)
+// 			break ;
+// 	}
+// 	return (NULL);
+// }
 
 int    main (int ac, char **av)
 {

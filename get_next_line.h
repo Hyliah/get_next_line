@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: hlichten <hlichten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:33:43 by hlichten          #+#    #+#             */
-/*   Updated: 2024/12/01 20:43:08 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/12/04 21:35:33 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 int main (int argc, char **argv);
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 4
 # endif 
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
@@ -35,5 +35,8 @@ int		ft_strlen(const char *str);
 void    ft_bzero(void *s, size_t n);
 int		ft_strlen(const char *str);
 char	*get_next_line(int fd);
+size_t	ft_strlen_until_newline(const char *s);
+
+void	*ft_memmove(void *dest, const void *src, size_t n);
 
 #endif
