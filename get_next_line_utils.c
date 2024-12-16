@@ -6,7 +6,7 @@
 /*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:33:39 by hlichten          #+#    #+#             */
-/*   Updated: 2024/12/01 20:08:13 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/12/02 21:20:52 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	*ft_strdupjoin(char *s1, char *s2)
 		i++;
 	}
 	if (s1)
-		free(s1);
+		free(s1); 
 	while (s2[j] && s2[j] != '\n')
 		str[i++] = s2[j++];
 	if (s2[j] == '\n')

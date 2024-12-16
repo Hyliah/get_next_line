@@ -6,7 +6,7 @@
 /*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:33:43 by hlichten          #+#    #+#             */
-/*   Updated: 2024/12/01 20:43:08 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:46:55 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 int main (int argc, char **argv);
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 7
 # endif 
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
