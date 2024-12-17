@@ -6,7 +6,7 @@
 /*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:21:57 by hlichten          #+#    #+#             */
-/*   Updated: 2024/12/01 20:42:56 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/12/17 19:37:53 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0) // fonction de verification si le fd est impossible ou si le buffer_size n est pas utilisable
 		return (NULL);
 	line = NULL;
-	if (*buff) // si il reste qqc dans le buffer 
-		ft_strcpy(line, buff); //on le transfert dans line (variable de retour)
+
+	//on le transfert dans line (variable de retour)
 	ft_bzero(buff, BUFFER_SIZE); // a la fin du buffer à BUFFER_SIZE +1 ou si le texte est plus petit, on rajoute un \0
 	while (1) // boucle infinie qui se termine une fois qu'il y a un retour. Si pas norminette on peut l ecrire : while ( rd = read(fd, buff, BUFFER_SIZE) > 0)
 	{
@@ -32,6 +32,7 @@ char	*get_next_line(int fd)
 		line = ft_strdupjoin(line, buff); // on met le contenu du buff dans line
 		if (ft_strchr(line, '\n'))
 		{
+			
 			ft_strcpy(buff, ft_strchr(line, '\n') + 1);
 			return (line);
 		}
@@ -47,7 +48,8 @@ int    main (int ac, char **av)
 {
     int     fd;
     char    *line;
-
+	
+	(void) ac;
     fd = open(*(++ av), O_RDONLY);
     while ((line = get_next_line(fd)) != NULL)
     {

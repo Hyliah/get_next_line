@@ -6,7 +6,7 @@
 /*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:33:39 by hlichten          #+#    #+#             */
-/*   Updated: 2024/12/02 21:20:52 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/12/17 19:39:25 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ char	*ft_strdupjoin(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	str = (char *)malloc(sizeof(char) * (ft_strlen((char *)(s1))
-				+ ft_strlen((char *)(s2)) + 1));
+	str = (char *)malloc(sizeof(char) * (ft_strlen((s1)) 
+		+ ft_strlen((s2)) + 1));
 	if (!str)
 		return (NULL);
 	while (s1 && s1[i])
@@ -108,10 +108,10 @@ char	*ft_strdupjoin(char *s1, char *s2)
 	}
 	if (s1)
 		free(s1); 
-	while (s2[j] && s2[j] != '\n')
+	while (s2[j] && s2[j])
 		str[i++] = s2[j++];
-	if (s2[j] == '\n')
-		str[i] = '\n'; 
+	if (s2[j] == '\n') 
+		str[i] = '\n';
 	str[++i] = '\0';
 	return (str);
 }
