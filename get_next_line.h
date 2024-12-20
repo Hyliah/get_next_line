@@ -6,7 +6,7 @@
 /*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:33:43 by hlichten          #+#    #+#             */
-/*   Updated: 2024/12/03 16:46:55 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/12/20 23:31:43 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-int main (int argc, char **argv);
-
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 7
+#  define BUFFER_SIZE 34
 # endif 
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
@@ -35,5 +33,6 @@ int		ft_strlen(const char *str);
 void    ft_bzero(void *s, size_t n);
 int		ft_strlen(const char *str);
 char	*get_next_line(int fd);
+char	*ft_free(char **line);
 
 #endif
