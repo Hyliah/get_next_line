@@ -6,7 +6,7 @@
 /*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:33:43 by hlichten          #+#    #+#             */
-/*   Updated: 2024/12/20 23:31:43 by hlichten         ###   ########.fr       */
+/*   Updated: 2024/12/22 14:33:16 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,18 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-// a supprimer pour les tests
-#include <stdio.h> 
-#include <stdio.h>
-#include <fcntl.h>
-
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 34
-# endif 
+#  define BUFFER_SIZE 42
+# endif
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-char	*ft_strdupjoin(char *s1, char *s2);
-char	*ft_strchr(const char *s, int c);
-void	ft_strcpy(char *dest, char *src);
-int		ft_strlen(const char *str);
-void    ft_bzero(void *s, size_t n);
-int		ft_strlen(const char *str);
-char	*get_next_line(int fd);
-char	*ft_free(char **line);
+int				ft_strlen(const char *str);
+unsigned int	ft_strlcpy(char *dest, const char *src, unsigned int size);
+char			*get_next_line(int fd);
+char			*ft_strchr(const char *s, int c);
+char			*ft_strjoin(char *s1, char *s2);
+char			*ft_free(char **line);
+int				join_and_check(char **line, char *to_join);
+int				pdate_and_check(char *buffer, char **line);
+int				is_eof(int rd, char *buffer, char **line);
 
 #endif
